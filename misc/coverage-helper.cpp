@@ -60,9 +60,8 @@ std::string windowsify_path(std::string path) {
 void exec_cmd(std::string const& cmd, int log_num, std::string const& path) {
     std::array<char, 128> buffer;
 #if defined(_WIN32)
-    auto real_cmd = "OpenCppCoverage --export_type cobertura:cobertura" + std::to_string(log_num)
-        + ".xml --quiet " + "--sources " + path + " -- " + cmd;
-    // ToDo: Escape / to \ in path
+    auto real_cmd = "OpenCppCoverage --export_type binary:cov-report" + std::to_string(log_num)
+        + ".bin --quiet " + "--sources " + path + " --cover_children -- " + cmd;
     std::cout << "=== Marker ===: Cmd: " << real_cmd << '\n';
     std::shared_ptr<FILE> pipe(_popen(real_cmd.c_str(), "r"), _pclose);
 #else // Just for testing, in the real world we will always work under WIN32
