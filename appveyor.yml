@@ -20,7 +20,7 @@ init:
 
 install:
   - ps: if (($env:CONFIGURATION) -eq "Debug" ) { python -m pip install codecov }
-  - ps: if (($env:CONFIGURATION) -eq "Debug" ) { .\scripts\installOpenCppCoverage.ps1 }
+  - ps: if (($env:CONFIGURATION) -eq "Debug" ) { .\misc\installOpenCppCoverage.ps1 }
 
 # Win32 and x64 are CMake-compatible solution platform names.
 # This allows us to pass %PLATFORM% to CMake -A.
@@ -39,7 +39,7 @@ before_build:
   # Indirection because appveyor doesn't handle multiline batch scripts properly
   # https://stackoverflow.com/questions/37627248/how-to-split-a-command-over-multiple-lines-in-appveyor-yml/37647169#37647169
   # https://help.appveyor.com/discussions/questions/3888-multi-line-cmd-or-powershell-warning-ignore
-  - cmd: .\scripts\appveyorBuildConfigurationScript.bat
+  - cmd: .\misc\appveyorBuildConfigurationScript.bat
 
 
 # build with MSBuild
@@ -50,4 +50,4 @@ build:
 
 test_script:
   - set CTEST_OUTPUT_ON_FAILURE=1
-  - cmd: .\scripts\appveyorTestRunScript.bat
+  - cmd: .\misc\appveyorTestRunScript.bat
